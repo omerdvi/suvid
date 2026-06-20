@@ -9,3 +9,5 @@ db/seed-data.sql
 .dev.vars
 .admin-key.txt
 .cloudflare-token.txt
+tmp-*
+*.log
