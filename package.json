@@ -1,0 +1,40 @@
+{
+  "name": "suvid",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm:api\" \"vite --host 0.0.0.0\"",
+    "api": "tsx server/index.ts",
+    "start": "tsx server/index.ts",
+    "build": "vite build",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "verify": "npm run test && npm run build && npm run test:e2e",
+    "pages:dev": "wrangler pages dev",
+    "pages:deploy": "npm run build && wrangler pages deploy",
+    "d1:schema": "wrangler d1 execute suvid --remote --file db/schema.sql",
+    "d1:schema:local": "wrangler d1 execute suvid --local --file db/schema.sql"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.1.1",
+    "express": "^5.2.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.0.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@types/supertest": "^6.0.3",
+    "concurrently": "^9.2.1",
+    "jsdom": "^27.3.0",
+    "supertest": "^7.1.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0",
+    "vitest": "^4.0.16"
+  }
+}

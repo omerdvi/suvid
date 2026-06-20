@@ -1,0 +1,10 @@
+name = "suvid"
+compatibility_date = "2026-05-27"
+pages_build_output_dir = "dist"
+
+# Serverless SQLite for ratings + recipe suggestions.
+# database_id is filled in after `wrangler d1 create suvid`.
+[[d1_databases]]
+binding = "DB"
+database_name = "suvid"
+database_id = "ef425b33-45c8-4fa8-a22e-bc8762242d6c"
