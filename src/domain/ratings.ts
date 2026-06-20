@@ -26,15 +26,23 @@ export const isRatingInput = (value: Partial<RatingInput>): value is RatingInput
   typeof value.textureFeedback === 'string' &&
   typeof value.nextTime === 'string';
 
+/** Non-empty trimmed string within a length cap. */
+const isBoundedText = (value: unknown, maxLength: number): value is string =>
+  typeof value === 'string' && value.trim().length > 0 && value.length <= maxLength;
+
 export const isSuggestionInput = (value: Partial<RecipeSuggestionInput>): value is RecipeSuggestionInput =>
-  typeof value.ingredientName === 'string' &&
-  value.ingredientName.trim().length > 0 &&
-  typeof value.prep === 'string' &&
-  value.prep.trim().length > 0 &&
-  typeof value.finish === 'string' &&
-  value.finish.trim().length > 0 &&
-  typeof value.notes === 'string' &&
-  value.notes.trim().length > 0;
+  isBoundedText(value.ingredientName, 80) &&
+  isBoundedText(value.prep, 1000) &&
+  isBoundedText(value.finish, 1000) &&
+  isBoundedText(value.notes, 1000) &&
+  // Optional temp/time: absent, or a finite value inside the plausible sous-vide range.
+  (value.temperatureC === undefined ||
+    (Number.isFinite(value.temperatureC) && value.temperatureC >= 45 && value.temperatureC <= 90)) &&
+  (value.timeHours === undefined ||
+    (Number.isFinite(value.timeHours) && value.timeHours > 0 && value.timeHours <= 72)) &&
+  // Optional source: must be an https URL so it's safe to render as a link.
+  (value.sourceUrl === undefined ||
+    (typeof value.sourceUrl === 'string' && value.sourceUrl.startsWith('https://') && value.sourceUrl.length <= 500));
 
 /** Theme buckets used to turn free-text feedback into a shared learning insight. */
 const insightThemes: { key: string; match: RegExp }[] = [

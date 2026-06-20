@@ -207,21 +207,33 @@ function OptionPanel({
 
 function RatingForm({ targetId, onRated }: { targetId: string; onRated: () => Promise<void> }) {
   const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (busy) return;
     const formElement = event.currentTarget;
     const form = new FormData(formElement);
-    await submitRating({
-      targetId,
-      stars: Number(form.get('stars')),
-      note: String(form.get('note') ?? ''),
-      textureFeedback: String(form.get('textureFeedback') ?? ''),
-      nextTime: String(form.get('nextTime') ?? '')
-    });
-    await onRated();
-    formElement.reset();
-    setStatus('הדירוג נשמר');
+    setBusy(true);
+    setError('');
+    setStatus('');
+    try {
+      await submitRating({
+        targetId,
+        stars: Number(form.get('stars')),
+        note: String(form.get('note') ?? ''),
+        textureFeedback: String(form.get('textureFeedback') ?? ''),
+        nextTime: String(form.get('nextTime') ?? '')
+      });
+      await onRated();
+      formElement.reset();
+      setStatus('הדירוג נשמר');
+    } catch {
+      setError('שמירת הדירוג נכשלה. בדקו את החיבור ונסו שוב.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -250,8 +262,11 @@ function RatingForm({ targetId, onRated }: { targetId: string; onRated: () => Pr
         בפעם הבאה
         <input name="nextTime" aria-label="בפעם הבאה" placeholder="יותר צריבה, פחות מלח..." />
       </label>
-      <button type="submit">שלח דירוג</button>
+      <button type="submit" disabled={busy}>
+        {busy ? 'שולח…' : 'שלח דירוג'}
+      </button>
       {status && <p className="success">{status}</p>}
+      {error && <p className="error">{error}</p>}
     </form>
   );
 }
@@ -259,22 +274,34 @@ function RatingForm({ targetId, onRated }: { targetId: string; onRated: () => Pr
 function SuggestionForm() {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (busy) return;
     const formElement = event.currentTarget;
     const form = new FormData(formElement);
-    await submitSuggestion({
-      ingredientName: String(form.get('ingredientName') ?? ''),
-      temperatureC: Number(form.get('temperatureC')) || undefined,
-      timeHours: Number(form.get('timeHours')) || undefined,
-      prep: String(form.get('prep') ?? ''),
-      finish: String(form.get('finish') ?? ''),
-      notes: String(form.get('notes') ?? ''),
-      sourceUrl: String(form.get('sourceUrl') ?? '') || undefined
-    });
-    formElement.reset();
-    setStatus('ההצעה נשמרה לבדיקה');
+    setBusy(true);
+    setError('');
+    setStatus('');
+    try {
+      await submitSuggestion({
+        ingredientName: String(form.get('ingredientName') ?? ''),
+        temperatureC: Number(form.get('temperatureC')) || undefined,
+        timeHours: Number(form.get('timeHours')) || undefined,
+        prep: String(form.get('prep') ?? ''),
+        finish: String(form.get('finish') ?? ''),
+        notes: String(form.get('notes') ?? ''),
+        sourceUrl: String(form.get('sourceUrl') ?? '') || undefined
+      });
+      formElement.reset();
+      setStatus('ההצעה נשמרה לבדיקה');
+    } catch {
+      setError('שליחת ההצעה נכשלה. בדקו את החיבור ונסו שוב.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   if (!open) {
@@ -320,12 +347,15 @@ function SuggestionForm() {
         <input name="sourceUrl" type="url" placeholder="https://" />
       </label>
       <div className="form-actions">
-        <button type="submit">שלח הצעה</button>
+        <button type="submit" disabled={busy}>
+          {busy ? 'שולח…' : 'שלח הצעה'}
+        </button>
         <button type="button" className="ghost" onClick={() => setOpen(false)}>
           ביטול
         </button>
       </div>
       {status && <p className="success">{status}</p>}
+      {error && <p className="error">{error}</p>}
     </form>
   );
 }

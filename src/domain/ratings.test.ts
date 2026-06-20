@@ -1,5 +1,46 @@
 import { describe, expect, it } from 'vitest';
-import { deriveInsight, summarizeRatings, type StoredRating } from './ratings';
+import { deriveInsight, isSuggestionInput, summarizeRatings, type StoredRating } from './ratings';
+import type { RecipeSuggestionInput } from './types';
+
+const suggestion = (overrides: Partial<RecipeSuggestionInput> = {}): Partial<RecipeSuggestionInput> => ({
+  ingredientName: 'קבב פרגית',
+  prep: 'מלח',
+  finish: 'צריבה',
+  notes: 'עסיסי',
+  temperatureC: 65,
+  timeHours: 2,
+  sourceUrl: 'https://example.com',
+  ...overrides
+});
+
+describe('suggestion validation', () => {
+  it('accepts a well-formed suggestion', () => {
+    expect(isSuggestionInput(suggestion())).toBe(true);
+  });
+
+  it('accepts a suggestion without optional temp/time/source', () => {
+    expect(
+      isSuggestionInput({ ingredientName: 'אנטריקוט', prep: 'מלח', finish: 'צריבה', notes: 'נחמד' })
+    ).toBe(true);
+  });
+
+  it('rejects out-of-range temperature and time', () => {
+    expect(isSuggestionInput(suggestion({ temperatureC: 500 }))).toBe(false);
+    expect(isSuggestionInput(suggestion({ timeHours: 0 }))).toBe(false);
+    expect(isSuggestionInput(suggestion({ timeHours: 200 }))).toBe(false);
+    expect(isSuggestionInput(suggestion({ temperatureC: Number.NaN }))).toBe(false);
+  });
+
+  it('rejects non-https source URLs', () => {
+    expect(isSuggestionInput(suggestion({ sourceUrl: 'javascript:alert(1)' }))).toBe(false);
+    expect(isSuggestionInput(suggestion({ sourceUrl: 'http://example.com' }))).toBe(false);
+  });
+
+  it('rejects empty or oversized text', () => {
+    expect(isSuggestionInput(suggestion({ ingredientName: '   ' }))).toBe(false);
+    expect(isSuggestionInput(suggestion({ notes: 'x'.repeat(1001) }))).toBe(false);
+  });
+});
 
 const rating = (overrides: Partial<StoredRating>): StoredRating => ({
   id: Math.random().toString(36).slice(2),
