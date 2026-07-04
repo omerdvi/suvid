@@ -65,6 +65,12 @@ describe('food-safety assessment', () => {
     expect(assessSafety('בקר', 75, 24).level).toBe('pasteurized');
   });
 
+  it('treats duck and goose as poultry: no pasteurization claim below 57°C', () => {
+    expect(assessSafety('ברווז', 55, 2).level).toBe('immediate');
+    expect(assessSafety('ברווז', 58, 1.5).level).toBe('pasteurized');
+    expect(assessSafety('אווז', 55, 2.5).level).toBe('immediate');
+  });
+
   it('classifies fish by temperature', () => {
     expect(assessSafety('דגים', 45, 0.5).level).toBe('raw');
     expect(assessSafety('דגים', 52, 0.5).level).toBe('immediate');

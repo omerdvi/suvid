@@ -178,6 +178,9 @@ const CATEGORY_DIRECTIONS: Record<string, DirectionSpec[]> = {
   ]
 };
 
+// Goose takes the same finishing directions as duck (orange, pomegranate).
+CATEGORY_DIRECTIONS['אווז'] = CATEGORY_DIRECTIONS['ברווז'];
+
 export function categoryDirections(ingredient: Ingredient): PreparationRecommendation[] {
   const specs = CATEGORY_DIRECTIONS[ingredient.category];
   if (!specs) return [];

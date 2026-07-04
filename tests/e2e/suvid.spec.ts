@@ -8,9 +8,9 @@ test('mobile user can search asado, calculate start time, rate, and suggest a re
   await page.getByPlaceholder('לדוגמה: אסאדו, סלמון, טופו').fill('אסאדו');
   await page.getByRole('button', { name: 'חפש' }).click();
 
-  await expect(page.getByText('75°C')).toBeVisible();
-  await expect(page.getByText('24 שעות')).toBeVisible();
-  await expect(page.getByText('רך מאוד, עדיין מחזיק צורה')).toBeVisible();
+  await expect(page.getByText('68°C')).toBeVisible();
+  await expect(page.getByText('36 שעות')).toBeVisible();
+  await expect(page.getByText('רך מאוד ועסיסי, עדיין מחזיק צורה')).toBeVisible();
   await expect(page.getByText(/נתח עבה מאוד:/)).not.toBeVisible();
   await page.getByLabel('עובי הנתח (ס״מ)').fill('5');
   await expect(page.getByText(/נתח עבה מאוד:/)).toBeVisible();
@@ -19,7 +19,9 @@ test('mobile user can search asado, calculate start time, rate, and suggest a re
   await page.getByLabel('דקות').selectOption('00');
   await expect(page.getByText('שעת הגשה: 20:00')).toBeVisible();
   await page.getByRole('button', { name: 'חשב מתי להתחיל' }).click();
-  await expect(page.getByText('להתחיל בערך')).toBeVisible();
+  // 36h asado can't be ready within the next 24h, so the planner explains when it
+  // would be ready if started now instead of showing a start time in the past.
+  await expect(page.getByText(/אם מתחילים עכשיו/)).toBeVisible();
 
   await page.getByLabel('דירוג').selectOption('5');
   await page.getByLabel('הערה').fill('מצוין');
@@ -160,8 +162,8 @@ test('mobile user can browse the catalog and choose pargit', async ({ page }) =>
   await poultryGroup.getByRole('button', { name: 'פרגית' }).click();
 
   await expect(page.getByText('פרגית').first()).toBeVisible();
-  await expect(page.getByText(/74.*C/)).toBeVisible();
-  await expect(page.locator('.metrics strong').filter({ hasText: /^1\.5\b/ })).toBeVisible();
+  await expect(page.getByText(/64.*C/).first()).toBeVisible();
+  await expect(page.locator('.metrics strong').filter({ hasText: /^2\b/ })).toBeVisible();
 });
 
 test('mobile layout keeps the compact time picker in hour then minutes order', async ({ page }) => {

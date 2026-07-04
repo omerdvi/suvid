@@ -11,9 +11,9 @@ describe('Hebrew ingredient search', () => {
     expect(result.ingredient.name).toBe('אסאדו');
     expect(result.ingredient.options).toHaveLength(3);
     expect(result.ingredient.options[0]).toMatchObject({
-      temperatureC: 75,
-      timeHours: 24,
-      texture: 'רך מאוד, עדיין מחזיק צורה'
+      temperatureC: 68,
+      timeHours: 36,
+      texture: 'רך מאוד ועסיסי, עדיין מחזיק צורה'
     });
   });
 
@@ -37,6 +37,30 @@ describe('Hebrew ingredient search', () => {
     if (result.kind !== 'clarify') return;
     expect(result.question).toBe('איזה סטייק יש לך?');
     expect(result.choices.map((choice) => choice.name)).toContain('פיקניה');
+  });
+
+  it('finds eggs by the singular ביצה', () => {
+    const result = findIngredient(seedIngredients, 'ביצה');
+
+    expect(result.kind).toBe('match');
+    if (result.kind !== 'match') return;
+    expect(result.ingredient.id).toBe('eggs');
+  });
+
+  it('finds neck meat by בשר צוואר', () => {
+    const result = findIngredient(seedIngredients, 'בשר צוואר');
+
+    expect(result.kind).toBe('match');
+    if (result.kind !== 'match') return;
+    expect(result.ingredient.id).toBe('beef-neck');
+  });
+
+  it('sends שריר to the shin braise profile, not roast beef', () => {
+    const result = findIngredient(seedIngredients, 'שריר');
+
+    expect(result.kind).toBe('match');
+    if (result.kind !== 'match') return;
+    expect(result.ingredient.id).toBe('beef-shin');
   });
 
   it('finds a newly added cut by Hebrew name', () => {

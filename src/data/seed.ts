@@ -21,11 +21,11 @@ export const seedIngredients: Ingredient[] = [
       {
         id: 'asado-recommended',
         label: 'מומלץ',
-        temperatureC: 75,
-        timeHours: 24,
-        texture: 'רך מאוד, עדיין מחזיק צורה',
+        temperatureC: 68,
+        timeHours: 36,
+        texture: 'רך מאוד ועסיסי, עדיין מחזיק צורה',
         recommended: true,
-        whenToChoose: 'הכי מתאים לארוחה ישראלית עם צריבה חזקה במחבת או גריל.',
+        whenToChoose: 'האיזון האמין לאסאדו רך באמת: טמפרטורה מתונה וזמן ארוך שממיסים את רקמות החיבור בלי לייבש. פחות מ-24 שעות עלול לצאת קשה.',
         prep: ['להמליח היטב', 'להוסיף פלפל שחור ושום', 'לא חובה שמן בשקית'],
         finish: ['לייבש היטב', 'לצרוב במחבת נירוסטה חמה 60-90 שניות לכל צד'],
         confidence: 'גבוהה',
@@ -36,23 +36,26 @@ export const seedIngredients: Ingredient[] = [
       },
       {
         id: 'asado-juicy',
-        label: 'עסיסי יותר',
-        temperatureC: 68,
-        timeHours: 36,
-        texture: 'רך ועסיסי, פחות מתפרק',
-        whenToChoose: 'כשלא רוצים תחושת תבשיל אלא נתח בשרי יותר.',
+        label: 'בשרי כמו סטייק',
+        temperatureC: 62,
+        timeHours: 48,
+        texture: 'ורדרד, בשרי ועסיסי — נחתך ולא מתפרק',
+        whenToChoose: 'כשלא רוצים תחושת תבשיל אלא נתח בשרי יותר. דורש סבלנות: פחות מ-48 שעות בטמפרטורה הזו יישאר קשה.',
         prep: ['מלח', 'פלפל', 'מעט פפריקה מעושנת'],
         finish: ['לייבש היטב', 'צריבה קצרה וחזקה במחבת נירוסטה'],
         confidence: 'בינונית',
-        sources: [source('Anova - Short Ribs', 'https://recipes.anovaculinary.com/recipe/sous-vide-short-ribs')]
+        sources: [
+          source('ChefSteps - Short Ribs', 'https://www.chefsteps.com/activities/bomb-braised-short-ribs'),
+          source('Anova - Short Ribs', 'https://recipes.anovaculinary.com/recipe/sous-vide-short-ribs')
+        ]
       },
       {
         id: 'asado-falling',
         label: 'מתפרק',
-        temperatureC: 82,
-        timeHours: 18,
+        temperatureC: 74,
+        timeHours: 30,
         texture: 'מתפרק ורך מאוד',
-        whenToChoose: 'כשמחפשים מרקם קרוב לתבשיל ארוך או מילוי לטאקו/כריכים.',
+        whenToChoose: 'כשמחפשים מרקם קרוב לתבשיל ארוך או מילוי לטאקו/כריכים. הזמן הארוך חשוב — זה מה שממיס את הקולגן.',
         prep: ['מלח', 'שום', 'פלפל שחור', 'אפשר מעט רוטב ברביקיו אחרי הבישול'],
         finish: ['לפרק או לפרוס', 'לצרוב במהירות או לקרמל ברוטב במחבת'],
         confidence: 'בינונית',
@@ -129,16 +132,17 @@ export const seedIngredients: Ingredient[] = [
       {
         id: 'pargit-juicy',
         label: 'עסיסי וישראלי',
-        temperatureC: 74,
-        timeHours: 1.5,
-        texture: 'עסיסי, רך ומתאים לצריבה חזקה',
+        temperatureC: 64,
+        timeHours: 2,
+        texture: 'עסיסי ורך, עם נגיסה נעימה',
         recommended: true,
-        whenToChoose: 'ברירת המחדל לפרגית לארוחה ישראלית, במיוחד אם מסיימים במחבת נירוסטה או בגריל גז.',
+        whenToChoose: 'ברירת המחדל לפרגית: 64°C היא נקודת המתיקות של ירך עוף — עסיסית ומפוסטרת היטב אחרי שעתיים, בלי להתייבש כמו בטמפרטורות גבוהות.',
         prep: ['מלח', 'פלפל', 'פפריקה', 'שום כתוש', 'מעט שמן זית או שמן ניטרלי'],
         finish: ['לייבש היטב', 'לצרוב 60-90 שניות מכל צד במחבת נירוסטה חמה או בגריל גז'],
         confidence: 'גבוהה',
         sources: [
           source('Serious Eats - Sous Vide Chicken Thighs', 'https://www.seriouseats.com/crispy-sous-vide-chicken-thigh-recipe'),
+          source('Amazing Food Made Easy - Chicken', 'https://www.amazingfoodmadeeasy.com/sous-vide-times-temperatures/chicken'),
           source('Anova - Chicken Thigh', 'https://recipes.anovaculinary.com/recipe/chicken-thigh')
         ]
       },
@@ -147,13 +151,28 @@ export const seedIngredients: Ingredient[] = [
         label: 'קפיצי ועדין',
         temperatureC: 66,
         timeHours: 2,
-        texture: 'עסיסי וקפיצי יותר, פחות מתפרק',
-        whenToChoose: 'כשמחפשים מרקם יותר בשרי ופחות תחושה של עוף צלוי קלאסי.',
+        texture: 'עסיסי וקפיצי יותר, פחות ורדרד',
+        whenToChoose: 'כשמעדיפים מרקם קרוב יותר לעוף צלוי קלאסי, בלי שמץ ורוד.',
         prep: ['מלח', 'פלפל', 'מעט סויה או לימון אחרי הבישול', 'לא להגזים בנוזלים בשקית'],
         finish: ['לייבש היטב', 'צריבה קצרה וחזקה כדי לא לייבש'],
-        confidence: 'בינונית',
+        confidence: 'גבוהה',
         sources: [
           source('Serious Eats - Sous Vide Chicken Thighs', 'https://www.seriouseats.com/crispy-sous-vide-chicken-thigh-recipe')
+        ]
+      },
+      {
+        id: 'pargit-shawarma',
+        label: 'מתפרק לשווארמה',
+        temperatureC: 74,
+        timeHours: 3,
+        texture: 'רך מאוד, כמעט מתפרק — כמו שווארמה',
+        whenToChoose: 'לפרגית מתפרקת לפיתה או לשווארמה ביתית. בטמפרטורה כזו חייבים זמן ארוך — בישול קצר יוצא קשה ויבש.',
+        prep: ['מלח', 'פפריקה', 'כורכום או בהרט', 'מעט שמן'],
+        finish: ['לפרוס דק', 'לצרוב במחבת חמה עד שוליים פריכים'],
+        confidence: 'בינונית',
+        sources: [
+          source('Serious Eats - Sous Vide Chicken Thighs', 'https://www.seriouseats.com/crispy-sous-vide-chicken-thigh-recipe'),
+          source('Amazing Food Made Easy - Chicken', 'https://www.amazingfoodmadeeasy.com/sous-vide-times-temperatures/chicken')
         ]
       }
     ],
@@ -232,6 +251,21 @@ export const seedIngredients: Ingredient[] = [
         whenToChoose: 'לביצים רכות, קערות אורז או ראמן.',
         prep: ['אין צורך בשקית'],
         finish: ['לקלף בזהירות ולהגיש'],
+        confidence: 'גבוהה',
+        sources: [
+          source('ChefSteps - Eggs', 'https://www.chefsteps.com/activities/the-best-egg-sous-vide'),
+          baldwin
+        ]
+      },
+      {
+        id: 'eggs-quick-poached',
+        label: 'עלומה מהירה',
+        temperatureC: 75,
+        timeHours: 0.25,
+        texture: 'חלבון רך שמחזיק צורה, חלמון נוזלי-קרמי',
+        whenToChoose: 'ביצה עלומה בלי חומץ ובלי מערבולות — רבע שעה ומגישים מעל טוסט או שקשוקה של יחיד.',
+        prep: ['אין צורך בשקית — מבשלים בקליפה'],
+        finish: ['לפתוח מעל טוסט או קערה ולהגיש מיד'],
         confidence: 'גבוהה',
         sources: [
           source('ChefSteps - Eggs', 'https://www.chefsteps.com/activities/the-best-egg-sous-vide'),
@@ -648,7 +682,7 @@ export const seedIngredients: Ingredient[] = [
         id: 'chicken-thighs-tender',
         label: 'רך ונופל',
         temperatureC: 74,
-        timeHours: 2,
+        timeHours: 3,
         texture: 'רך מאוד, כמעט נופל מהעצם',
         recommended: true,
         whenToChoose: 'לשוקיים עסיסיים עם עור פריך אחרי צריבה.',
@@ -979,7 +1013,7 @@ export const seedIngredients: Ingredient[] = [
       {
         id: 'duck-breast-mr',
         label: 'מדיום רייר',
-        temperatureC: 57,
+        temperatureC: 55,
         timeHours: 2,
         texture: 'ורוד, רך ועסיסי עם עור פריך',
         recommended: true,
@@ -995,7 +1029,7 @@ export const seedIngredients: Ingredient[] = [
       {
         id: 'duck-breast-medium',
         label: 'מדיום',
-        temperatureC: 60,
+        temperatureC: 58,
         timeHours: 1.5,
         texture: 'מדיום, יציב יותר',
         whenToChoose: 'למי שמעדיף פחות ורוד.',
@@ -1365,7 +1399,7 @@ export const seedIngredients: Ingredient[] = [
     id: 'roast-beef',
     name: 'רוסטביף',
     category: 'בקר',
-    aliases: ['רוסטביף', 'צלי בקר', 'שריר', 'eye of round', 'נתח צלי'],
+    aliases: ['רוסטביף', 'צלי בקר', 'eye of round', 'נתח צלי'],
     availability: 'נתח רזה לפריסה דקה, זמין בקצביות ובסופרים בישראל.',
     thickNote: 'נתח עבה: להאריך מעט; מתאים לבישול ארוך לרכות.',
     frozenNote: 'קפוא: להפשיר במקרר ולייבש לפני הצריבה.',
@@ -1863,6 +1897,150 @@ export const seedIngredients: Ingredient[] = [
         summary: 'מרקם אחיד ומדויק עם קראמל וטעם עשיר.',
         ingredients: ['כרובית', 'מלח', 'חמאה', 'שום', 'שמן זית'],
         steps: ['לחתוך לפרחים אחידים', 'לבשל', 'לצרוב לקראמל ולהגיש']
+      }
+    ]
+  },
+  {
+    id: 'beef-neck',
+    name: 'צוואר בקר',
+    category: 'בקר',
+    aliases: ['צוואר', 'בשר צוואר', 'צוואר בקר', 'beef neck'],
+    availability: 'נתח עבודה זול ועשיר בטעם, זמין אצל קצבים בישראל, לרוב לתבשילים.',
+    thickNote: 'נתח עבה מאוד: אפשר להאריך עד 48 שעות לרכות מלאה.',
+    frozenNote: 'קפוא: להפשיר במקרר ולייבש לפני התיבול.',
+    options: [
+      {
+        id: 'beef-neck-tender',
+        label: 'מומלץ',
+        temperatureC: 68,
+        timeHours: 36,
+        texture: 'רך ועסיסי, נפרס יפה',
+        recommended: true,
+        whenToChoose: 'צוואר עשיר בקולגן — טמפרטורה מתונה וזמן ארוך הופכים אותו לרך ועסיסי בלי לייבש.',
+        prep: ['מלח גס', 'פלפל שחור', 'שום', 'אפשר פפריקה מעושנת'],
+        finish: ['לייבש היטב', 'לצרוב חזק במחבת או לקרמל ברוטב'],
+        confidence: 'גבוהה',
+        sources: [
+          source('Amazing Food Made Easy - Beef', 'https://www.amazingfoodmadeeasy.com/sous-vide-times-temperatures/how-to-sous-vide/beef'),
+          baldwin
+        ]
+      },
+      {
+        id: 'beef-neck-pulled',
+        label: 'מתפרק',
+        temperatureC: 74,
+        timeHours: 24,
+        texture: 'מתפרק בקלות, מתאים לתבשיל או מילוי',
+        whenToChoose: 'כשרוצים בשר מתפרק לחמין, טאקו או צלחת עם רוטב.',
+        prep: ['מלח', 'פלפל', 'שום', 'כמון אם אוהבים'],
+        finish: ['לפרק במזלג', 'לערבב עם נוזלי השקית או רוטב ולחמם קצר'],
+        confidence: 'בינונית',
+        sources: [source('ChefSteps - Tough Cuts', 'https://www.chefsteps.com/activities/sous-vide-tough-cuts-of-beef')]
+      }
+    ],
+    recommendations: [
+      {
+        id: 'beef-neck-rec',
+        title: 'צוואר בקר בסגנון תבשיל',
+        summary: 'נתח זול שיוצא עשיר ורך, עם רוטב מנוזלי השקית.',
+        ingredients: ['צוואר בקר', 'מלח גס', 'פלפל', 'שום', 'פפריקה מעושנת'],
+        steps: ['לתבל', 'לבשל ארוך', 'לצמצם את נוזלי השקית לרוטב', 'לצרוב או לפרק ולהגיש עם הרוטב']
+      }
+    ]
+  },
+  {
+    id: 'beef-shin',
+    name: 'שריר בקר',
+    category: 'בקר',
+    aliases: ['שריר', 'שריר בקר', 'שריר הזרוע', 'אוסובוקו', 'osso buco'],
+    availability: 'נתח עבודה קלאסי לתבשילים, זמין אצל קצבים בישראל, לרוב פרוס עם עצם (אוסובוקו).',
+    thickNote: 'פרוסות עבות עם עצם: אפשר להאריך עד 72 שעות לרכות מקסימלית.',
+    frozenNote: 'קפוא: להפשיר במקרר ולייבש לפני התיבול.',
+    options: [
+      {
+        id: 'beef-shin-tender',
+        label: 'נימוח ועסיסי',
+        temperatureC: 62,
+        timeHours: 48,
+        texture: 'נימוח, עסיסי ומלא ג׳לטין',
+        recommended: true,
+        whenToChoose: 'שריר מלא רקמות חיבור — בישול ארוך בטמפרטורה מתונה נותן אוסובוקו נימוח שלא יבש. דורש סבלנות של יומיים.',
+        prep: ['מלח', 'פלפל שחור', 'שום', 'אפשר עלה דפנה בשקית'],
+        finish: ['לייבש', 'לצרוב קצר', 'לצמצם את נוזלי השקית לרוטב עשיר'],
+        confidence: 'בינונית',
+        sources: [
+          source('Summer Yule - Sous Vide Osso Buco', 'https://summeryule.com/osso-buco-sous-vide/'),
+          source("Stefan's Gourmet - Ossobuco Time/Temp Experiment", 'https://stefangourmet.com/2022/12/18/ossobuco-sous-vide-time-and-temperature-experiment/')
+        ]
+      },
+      {
+        id: 'beef-shin-braise',
+        label: 'מתפרק לתבשיל',
+        temperatureC: 79,
+        timeHours: 24,
+        texture: 'מתפרק, כמו תבשיל ארוך קלאסי',
+        whenToChoose: 'כשרוצים תוצאה של תבשיל תוך יממה, למשל לאוסובוקו ברוטב עגבניות.',
+        prep: ['מלח', 'פלפל', 'שום'],
+        finish: ['לחמם ברוטב תבשיל ולהגיש על העצם'],
+        confidence: 'בינונית',
+        sources: [source('Anova - Sous Vide Osso Buco', 'https://recipes.anovaculinary.com/recipe/sous-vide-osso-buco')]
+      }
+    ],
+    recommendations: [
+      {
+        id: 'beef-shin-rec',
+        title: 'אוסובוקו ברוטב יין ועגבניות',
+        summary: 'בישול ארוך ומדויק, ואז רוטב עשיר מנוזלי השקית.',
+        ingredients: ['שריר בקר', 'מלח', 'פלפל', 'שום', 'רסק עגבניות', 'יין אדום'],
+        steps: ['לתבל', 'לבשל ארוך', 'לצמצם רוטב עם נוזלי השקית', 'לחמם ברוטב ולהגיש']
+      }
+    ]
+  },
+  {
+    id: 'goose-breast',
+    name: 'חזה אווז',
+    category: 'אווז',
+    aliases: ['חזה אווז', 'אווז', 'goose', 'goose breast'],
+    availability: 'נתח פופולרי במסעדות בשרים בישראל, זמין אצל קצבים לרוב קפוא, עם שכבת שומן ועור.',
+    frozenNote: 'קפוא: להפשיר במקרר ולייבש את העור היטב לפני הצריבה.',
+    thickNote: 'חזה עבה במיוחד: להוסיף 30-45 דקות.',
+    options: [
+      {
+        id: 'goose-breast-mr',
+        label: 'ורוד ועסיסי',
+        temperatureC: 55,
+        timeHours: 2.5,
+        texture: 'ורוד, עסיסי ורך עם עור פריך',
+        recommended: true,
+        whenToChoose: 'חזה אווז מתנהג כמו סטייק — ורוד ועסיסי עם עור מקורמל, לא אפור וקשה.',
+        prep: ['לחרוץ את שכבת השומן ברשת', 'מלח', 'פלפל'],
+        finish: ['להתחיל מצד העור במחבת קרה', 'לצרוב לאט עד שהעור פריך ומשחרר שומן', 'לפרוס נגד הסיבים'],
+        confidence: 'בינונית',
+        sources: [
+          source('Anova - Orange Goose Sous Vide', 'https://recipes.anovaculinary.com/recipe/orange-goose-sous-vide'),
+          source('Sousvideer - Goose Breast', 'https://www.sousvideer.com/post/goose-breast-juicy-rich-flavor')
+        ]
+      },
+      {
+        id: 'goose-breast-medium',
+        label: 'מדיום',
+        temperatureC: 58,
+        timeHours: 2,
+        texture: 'מדיום, יציב יותר',
+        whenToChoose: 'למי שמעדיף פחות ורוד.',
+        prep: ['לחרוץ עור', 'מלח', 'פלפל'],
+        finish: ['לצרוב לאט על העור עד פריך'],
+        confidence: 'בינונית',
+        sources: [source('Sousvideer - Goose Breast', 'https://www.sousvideer.com/post/goose-breast-juicy-rich-flavor')]
+      }
+    ],
+    recommendations: [
+      {
+        id: 'goose-breast-rec',
+        title: 'חזה אווז עם עור פריך',
+        summary: 'בישול מדויק וסיום איטי על העור, כמו במסעדות בשרים.',
+        ingredients: ['חזה אווז', 'מלח', 'פלפל'],
+        steps: ['לחרוץ עור ולתבל', 'לבשל', 'לייבש', 'לצרוב לאט מצד העור ולפרוס']
       }
     ]
   }

@@ -113,7 +113,19 @@ export function assessSafety(category: string, temperatureC: number, timeHours: 
     return { level: 'immediate', label: 'בטוח לאכילה מיידית', note: IMMEDIATE_NOTE };
   }
 
-  if (category === 'בקר' || category === 'טלה' || category === 'ברווז') {
+  if (category === 'ברווז' || category === 'אווז') {
+    // Duck and goose are poultry: claim pasteurization only from 57°C up (Baldwin's poultry tables).
+    if (temperatureC >= 57) {
+      return {
+        level: 'pasteurized',
+        label: 'מפוסטר — בטוח לכולם',
+        note: 'בטמפרטורה ובזמן אלה הברווז מפוסטר ובטוח לכל הסועדים (לפי Baldwin).'
+      };
+    }
+    return { level: 'immediate', label: 'בטוח לאכילה מיידית', note: IMMEDIATE_NOTE };
+  }
+
+  if (category === 'בקר' || category === 'טלה') {
     // Long, low cooks pasteurize tough cuts; medium-rare pasteurizes from ~54.5°C.
     if (timeHours >= 4 && temperatureC >= 55) {
       return {
@@ -155,6 +167,7 @@ export function searGuide(category: string): string {
     case 'עוף':
       return 'צריבה: לייבש את העור ולצרוב 1-2 דקות לכל צד במחבת חמה מאוד עד עור פריך. אפשר טורף/גריל לסיום.';
     case 'ברווז':
+    case 'אווז':
       return 'צריבה: להתחיל מצד העור במחבת קרה ולהעלות חום בהדרגה 4-6 דקות עד עור פריך, ואז 30-60 שניות בצד השני.';
     case 'דגים':
       return 'צריבה: לייבש בעדינות ולצרוב על צד העור בלבד 30-60 שניות. לא להפוך יותר מדי — הדג עדין.';

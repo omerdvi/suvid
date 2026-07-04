@@ -31,7 +31,7 @@ describe('SuVid API', () => {
     const response = await request(app).get('/api/ingredients/asado').expect(200);
 
     expect(response.body.name).toBe('אסאדו');
-    expect(response.body.options[0].temperatureC).toBe(75);
+    expect(response.body.options[0].temperatureC).toBe(68);
     expect(response.body.recommendations[0].title).toContain('אסאדו');
   });
 

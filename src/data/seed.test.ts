@@ -85,7 +85,7 @@ describe('seed recipe database quality', () => {
   // ChefSteps, Anova and Amazing Food Made Easy. Treat changes here as deliberate.
   it('matches verified temperatures/times from reliable sources for recommended options', () => {
     const verified: Record<string, { temperatureC: number; timeHours: number }> = {
-      asado: { temperatureC: 75, timeHours: 24 },
+      asado: { temperatureC: 68, timeHours: 36 },
       ribeye: { temperatureC: 54, timeHours: 1.5 },
       brisket: { temperatureC: 68, timeHours: 36 },
       picanha: { temperatureC: 54, timeHours: 2 },
@@ -93,11 +93,11 @@ describe('seed recipe database quality', () => {
       'beef-fillet': { temperatureC: 54, timeHours: 1.5 },
       'beef-tongue': { temperatureC: 70, timeHours: 24 },
       'chicken-breast': { temperatureC: 63, timeHours: 1.5 },
-      pargit: { temperatureC: 74, timeHours: 1.5 },
-      'chicken-thighs': { temperatureC: 74, timeHours: 2 },
+      pargit: { temperatureC: 64, timeHours: 2 },
+      'chicken-thighs': { temperatureC: 74, timeHours: 3 },
       'turkey-breast': { temperatureC: 63, timeHours: 2.5 },
       'chicken-wings': { temperatureC: 75, timeHours: 2 },
-      'duck-breast': { temperatureC: 57, timeHours: 2 },
+      'duck-breast': { temperatureC: 55, timeHours: 2 },
       salmon: { temperatureC: 50, timeHours: 0.75 },
       denis: { temperatureC: 52, timeHours: 0.5 },
       levrak: { temperatureC: 52, timeHours: 0.5 },
@@ -115,6 +115,9 @@ describe('seed recipe database quality', () => {
       'lamb-shank': { temperatureC: 68, timeHours: 24 },
       'lamb-shoulder': { temperatureC: 70, timeHours: 24 },
       eggs: { temperatureC: 63, timeHours: 1 },
+      'beef-neck': { temperatureC: 68, timeHours: 36 },
+      'beef-shin': { temperatureC: 62, timeHours: 48 },
+      'goose-breast': { temperatureC: 55, timeHours: 2.5 },
       carrot: { temperatureC: 85, timeHours: 1 },
       asparagus: { temperatureC: 85, timeHours: 0.25 }
     };

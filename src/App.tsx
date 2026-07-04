@@ -55,7 +55,10 @@ const minutes = Array.from({ length: 12 }, (_, index) => padTime(index * 5));
 const formatHours = (value: number) => {
   if (value < 1) return `${Math.round(value * 60)} דק׳`;
   const whole = Number.isInteger(value) ? `${value}` : value.toFixed(value % 1 === 0.5 ? 1 : 2);
-  return `${whole} שעות`;
+  if (value <= 24) return `${whole} שעות`;
+  const days = Math.round((value / 24) * 4) / 4;
+  const daysText = days === 2 ? 'יומיים' : `כ־${days} ימים`;
+  return `${whole} שעות (${daysText})`;
 };
 
 function TimePicker24({
